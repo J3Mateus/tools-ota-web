@@ -5,12 +5,12 @@ import { Device, Group, Wifi } from "../core/models";
 import { getAllDevice } from "../core/service/device";
 import { addFirmwareToGroup, getAllGroup } from "../core/service/group";
 import { getAllWifi } from "../core/service/wifi";
-const { Option } = Select;
+
 
 const DeviceGroupLink: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
-  const [wifis,setWifis] = useState<Wifi[]>([]);
+  const [_,setWifis] = useState<Wifi[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);

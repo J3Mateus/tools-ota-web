@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, notification, Modal, Select } from "antd";
+import { Table, Button, notification } from "antd";
 import { Link } from "react-router-dom"; // Importando o Link do react-router-dom
 import type { ColumnsType } from "antd/es/table";
 
 import { Firmwares, Firmware, Group } from "../core/models"; // Supondo que você tem modelos definidos para grupos
 import { getAllFirmware } from "../core/service/firmware";
-import { addFirmwareToGroup, getAllGroup } from "../core/service/group";
+import { getAllGroup } from "../core/service/group";
 
-const { Option } = Select;
 
 const FirmwareList: React.FC = () => {
   const [firmwares, setFirmwares] = useState<Firmwares>();
-  const [groups, setGroups] = useState<Group[]>([]); // Lista de grupos
+  const [_, setGroups] = useState<Group[]>([]); // Lista de grupos
   const [loading, setLoading] = useState(false);
-  const [selectedFirmware, setSelectedFirmware] = useState<Firmware | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
 
   useEffect(() => {
     // Carregar firmwares e grupos

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BackendClient = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api', // Substitua pela URL da sua API
+    baseURL: import.meta.env.VITE_API_URL, // Substitua pela URL da sua API
     timeout: 10000, // Tempo limite de 10 segundos
 });
 

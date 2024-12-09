@@ -17,7 +17,7 @@ const EditorPage: React.FC = () => {
   const [version, setVersion] = useState<string>(''); // Adicionando estado para a versão
   const navigate = useNavigate();
 
-  const handleEditorDidMount = (editor:any, monaco:any) => {
+  const handleEditorDidMount = (_:any, monaco:any) => {
     // Registrando o provider de sugestões para C/C++ (utilizado para Arduino)
     monaco.languages.registerCompletionItemProvider('cpp', {
       provideCompletionItems: (model: { getWordUntilPosition: (arg0: any) => any; }, position: any) => {

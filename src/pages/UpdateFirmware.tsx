@@ -4,7 +4,6 @@ import Monaco from '@monaco-editor/react';
 import { Input, Layout, Button, Form, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { getFirmwareByID, updateFirmware } from '../core/service/firmware';
-import { useNavigate } from 'react-router-dom';
 import { Firmware } from '../core/models';
 
 const { Content } = Layout;
@@ -15,7 +14,6 @@ const CodeUpdate: React.FC = () => {
   const [name, setName] = useState<string>(''); // Adicionando estado para o nome
   const [version, setVersion] = useState<string>(''); // Adicionando estado para a versão
   const [firmware, setFirmware] = useState<Firmware | null>(null); // Usando `null` como valor inicial
-  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -46,6 +44,7 @@ const CodeUpdate: React.FC = () => {
     };
 
     const updatedFirmware = await updateFirmware(data);
+    console.log(updatedFirmware);
     try {
       message.success('Firmware enviado com sucesso!');
     } catch (error) {
