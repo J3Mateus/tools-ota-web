@@ -8,7 +8,9 @@ import EditorPage from './pages/EditorPage';
 import FirmwareList from './pages/FirmwareList';
 import DeviceGroupLink from './pages/DeviceGroupLink';
 import GroupDetailsPage from './pages/GroupDetailsPage';
+import WifiForm from './pages/WifiCreate';
 import CodeUpdate from './pages/UpdateFirmware';
+import CreateGroup from './pages/CreateGroup';
 
 const { Header, Content, Footer } = Layout;
 
@@ -29,6 +31,12 @@ const App: React.FC = () => {
           <Menu.Item key="3">
             <Link to="/device/link/groups">Vincular dispositivo ao grupo</Link>
           </Menu.Item>
+          <Menu.Item key="5">
+            <Link to="/wifi/create">Criar wifi</Link>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <Link to="/group/create">Criar grupo</Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content style={{ padding: '20px' }}>
@@ -38,7 +46,8 @@ const App: React.FC = () => {
           <Route path="/editor/:group_id?" element={<EditorPage  />} />
           <Route path="/firmware/list" element={<FirmwareList />} />
           <Route path="/firmware/:firmware_id" element={<CodeUpdate />} />
-          
+          <Route path="/wifi/create" element={<WifiForm />} />
+          <Route path="/group/create" element={<CreateGroup/>} />
           <Route path="/device/link/groups" element={<DeviceGroupLink/>} />
           <Route path='/group/:id' element={<GroupDetailsPage/>} />
           <Route path="*" element={<NotFound />} />

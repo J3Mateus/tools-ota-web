@@ -57,3 +57,13 @@ export const initializeGroupOta = async( group_id: string): Promise<Group> => {
     throw error
   }
 }
+
+export const createGroup = async (values: { name: string }): Promise<Group> => {
+    try {
+        const response = await BackendClient.post<Group>('/group/create/', values);
+        return response.data 
+      } catch (error) {
+        console.error('Falha ao criar grupo:', error);
+        throw error
+      }
+}

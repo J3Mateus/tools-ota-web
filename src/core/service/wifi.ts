@@ -20,3 +20,13 @@ export const getWifiByID = async (id: string): Promise<Wifi> => {
         throw error
       }
 }	
+
+export const createWifi = async (values: { SSDI: string; password: string }): Promise<Wifi> => {
+    try {
+        const response = await BackendClient.post<Wifi>('/wifi/create/', values);
+        return response.data 
+      } catch (error) {
+        console.error('Falha ao criar Wifi:', error);
+        throw error
+      }
+}
