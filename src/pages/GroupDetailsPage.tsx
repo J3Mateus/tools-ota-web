@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Card, Select, Table, Typography, message, Row, Col, Skeleton } from 'antd';
+import { Button, Card, Select, Table, Typography, message, Row, Col, Skeleton, Switch } from 'antd';
 import { Devices, Firmwares, Group, Wifis } from '../core/models';
 import { getAllFirmware } from '../core/service/firmware';
 import { addDeviceToGroup, getAllDevice } from '../core/service/device';
-import { addFirmwareToGroup, addWifiToGroup, getByID, initializeGroupOta } from '../core/service/group';
+import { addFirmwareToGroup, addWifiToGroup, deleteGroup, getByID, initializeGroupOta } from '../core/service/group';
 import { getAllWifi } from '../core/service/wifi';
 import { useNavigate } from 'react-router-dom';
 
@@ -119,6 +119,12 @@ const GroupDetailsPage: React.FC = () => {
     fetchWifis();
   }, [id]);
 
+  const onChange = (checked: boolean) => {
+    if (checked){
+      deleteGroup(id!)
+    }
+  };
+
   return (
     <div style={{ padding: 20 }}>
       <Row justify="center">
@@ -147,7 +153,7 @@ const GroupDetailsPage: React.FC = () => {
                     <strong>Wifi:</strong> {group.wifi ? group.wifi.SSDI : 'Nenhum'}
                   </Text>
                 </div>
-
+                <Switch  onChange={onChange} />
                 {/* Ações principais */}
                 <Row gutter={[16, 16]}>
                   <Col span={12}>

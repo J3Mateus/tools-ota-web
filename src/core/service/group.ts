@@ -67,3 +67,13 @@ export const createGroup = async (values: { name: string }): Promise<Group> => {
         throw error
       }
 }
+
+export const deleteGroup = async (id: string): Promise<Group> => {
+    try {
+        const response = await BackendClient.delete<Group>(`/group/delete/${id}/`);
+        return response.data 
+      } catch (error) {
+        console.error('Falha ao deletar grupo:', error);
+        throw error
+      }
+}
