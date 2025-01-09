@@ -1,0 +1,15 @@
+.addButton {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+
+	background-color: #32cd32;
+	color: #fff;
+	font-size: 18px;
+
+	&:hover {
+		border-color: unset !important;
+		color: #000000 !important;
+		background-color: rgba(#32cd32, 0.85);
+	}
+}

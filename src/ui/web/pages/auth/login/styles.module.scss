@@ -1,0 +1,95 @@
+.container {
+	height: 100%;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+
+	@media (min-width: 1060px) {
+		flex-direction: row;
+	}
+
+	.appLogoContainer {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		@media (min-width: 1060px) {
+			width: 50%;
+		}
+
+		.appLogo {
+			width: 250px;
+			height: 250px;
+
+			@media (min-width: 576px) {
+				width: 400px;
+				height: 400px;
+			}
+		}
+	}
+
+	.formLoginContainer {
+		width: 100%;
+		height: 100%;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+
+		@media (min-width: 1060px) {
+			width: 50%;
+			justify-content: center;
+
+			box-shadow: -3px 0 5px 3px rgba(0, 0, 0, 0.1);
+		}
+
+		.loginForm {
+			@media (max-width: 576px) {
+				width: 325px;
+			}
+
+			@media (min-width: 576px) {
+				width: 500px;
+			}
+
+			label {
+				font-size: 16px;
+			}
+
+			.formInput {
+				> div > div {
+					padding: 0;
+				}
+			}
+
+			.inputBorderColor {
+				border-color: #000;
+			}
+
+			.LoginButton {
+				background-color: #1e2439;
+				color: #fff;
+			}
+		}
+
+		footer {
+			width: 100%;
+			max-width: 756px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			align-items: flex-end;
+
+			@media (min-width: 1060px) {
+				width: 35%;
+				position: absolute;
+				bottom: 40px;
+			}
+		}
+	}
+}

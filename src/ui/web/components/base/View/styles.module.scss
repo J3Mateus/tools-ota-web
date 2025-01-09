@@ -1,0 +1,35 @@
+#container {
+	height: 100%;
+	width: 100%;
+
+	padding: 1rem;
+
+	.content {
+		height: 100%;
+
+		padding: 1rem 4rem;
+
+		background-color: #fff;
+		border-radius: 6px;
+
+		overflow-y: scroll;
+		overflow-x: hidden;
+
+		.headerContainer {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+
+			.headerTitleContent {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+
+				h3 {
+					font-size: 1.5em;
+					margin: 1rem 0;
+				}
+			}
+		}
+	}
+}
