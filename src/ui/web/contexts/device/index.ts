@@ -11,6 +11,7 @@ interface Props {
 	update(device: Device): Promise<boolean>;
 	linkWifi(deviceID: string, wifiID: string): Promise<boolean>;
 	linkFirmware(deviceID: string, firewallID: string): Promise<boolean>;
+	linkApiKey(deviceID: string, apiKeyID: string): Promise<boolean>;
 	initializeOta(deviceID: string): Promise<boolean>;
 }
 

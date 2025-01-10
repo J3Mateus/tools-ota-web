@@ -3,6 +3,7 @@ import { Model } from "./model";
 import Firmware from "./Firmware";
 import Wifi from "./Wifi";
 import Device from "./Device";
+import Key from "./Key";
 
 
 class Group extends Model {
@@ -12,6 +13,7 @@ class Group extends Model {
     private _isDeleted: boolean;
     private _firmware?: Firmware;
     private _wifi?: Wifi;
+    private _key?: Key;
     private _device: Device[];
 
     constructor() {
@@ -22,6 +24,7 @@ class Group extends Model {
         this._isDeleted = false;
         this._firmware = undefined;
         this._wifi = undefined;
+        this._key = undefined;
         this._device = [];
     }
 
@@ -82,12 +85,21 @@ class Group extends Model {
         this._device = value;
     }
 
+    get key(): Key | undefined {
+        return this._key;
+    }
+
+    set key(value: Key | undefined) {
+        this._key = value;
+    }
+
     static fromJSON(json: DTO): Group {
         const obj = new Group();
         obj._uuid = String(json["uuid"]);
         obj._name = String(json["name"]);
         obj._active = Boolean(json["active"]);
         obj._isDeleted = Boolean(json["is_deleted"]);
+        obj._key = json["api_key"] ? Key.fromJSON(json["api_key"] as DTO) : undefined
         obj._firmware = json["firmware"] ? Firmware.fromJSON(json["firmware"] as DTO) : undefined;
         obj._wifi = json["wifi"] ? Wifi.fromJSON(json["wifi"] as DTO) : undefined;
         obj._device = Device.fromJSONArray(json["device"] as DTO[] || []);
@@ -106,6 +118,7 @@ class Group extends Model {
         json["is_deleted"] = this._isDeleted;
         if (this._firmware) json["firmware"] = this._firmware.toJSON();
         if (this._wifi) json["wifi"] = this._wifi.toJSON();
+        if (this._key) json["api_key"] = this._key.toJSON();
         json["device"] = Device.toJSONArray(this._device);
         return json;
     }

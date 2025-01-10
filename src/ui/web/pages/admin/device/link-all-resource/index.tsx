@@ -15,7 +15,12 @@ import {
     useWifis 
 } from "@web/contexts/wifi/hooks";
 
-import { useFindDeviceByID, useLinkFirmware, useLinkWifi } from "@web/contexts/device/hooks";
+import {
+    useFetchKeys,
+    useKeys
+} from "@web/contexts/key/hooks"
+
+import { useFindDeviceByID, useLinkFirmware, useLinkWifi, useLinkApiKey } from "@web/contexts/device/hooks";
 import View from "@web/components/base/View";
 
 
@@ -30,18 +35,23 @@ function DeviceDetailPage() {
     const featchWifis = useFetchWifis();
     const wifis = useWifis();
 
+    const fetchKeys = useFetchKeys();
+    const apiKey = useKeys();
 
     const linkDeviceToWiFi = useLinkWifi();
     const linkDeviceToFirmware = useLinkFirmware();
+    const linkDeviceToApiKey = useLinkApiKey();
 
     const [selectedWiFi, setSelectedWiFi] = useState<string | undefined>();
     const [selectedFirmware, setSelectedFirmware] = useState<string | undefined>();
+    const [selectedKey, setSelectedKey ] =  useState<string | undefined>();
+    
     const [device, setDevice] = useState<Device>();
 
     useEffect(() => {
         fetchFirmwares();
         featchWifis();
-
+        fetchKeys();
         if (deviceId && !!findDeviceByID) {
             findDeviceByID(deviceId).then((result) => {
                 setDevice(result);
@@ -73,7 +83,17 @@ function DeviceDetailPage() {
         }
     }, [deviceId, selectedFirmware, findDeviceByID, linkDeviceToFirmware]);
 
-
+    const handleLinkApiKey = useCallback(async () => {
+        if (deviceId && selectedKey) {
+        const success = await linkDeviceToApiKey(deviceId, selectedKey);
+        if (success) {
+            if (findDeviceByID) {
+                const updatedDevice = await findDeviceByID(deviceId); // Faz nova requisição
+                setDevice(updatedDevice); // Atualiza o estado do grupo
+            }
+        }
+        }
+    }, [deviceId, selectedKey, linkDeviceToApiKey,findDeviceByID, apiKey?.results]);
 
     return (
     <View showBackButton>
@@ -89,6 +109,12 @@ function DeviceDetailPage() {
             <Col span={12}>
                 <Form.Item label="Firmware Vinculado">
                     <div>{device?.firmware?.name || "Nenhum Firmware vinculado"}</div>
+                </Form.Item>
+            </Col>
+
+            <Col span={12}>
+                <Form.Item label="Key Vinculado">
+                    <div>{device?.key?.name || "Nenhuma key vinculado"}</div>
                 </Form.Item>
             </Col>
         </Row>
@@ -108,6 +134,29 @@ function DeviceDetailPage() {
                 </Col>
                 <Col span={6}>
                     <Button type="primary" onClick={handleLinkWiFi}>
+                    Vincular
+                    </Button>
+                </Col>
+                </Row>
+            </Form.Item>
+            </Col>
+
+
+            <Col span={8}>
+            <Form.Item label="Key">
+                <Row gutter={8}>
+                <Col span={18}>
+                    <Select
+                    placeholder="Selecione um key"
+                    onChange={setSelectedKey}
+                    options={apiKey?.results.map((key) => ({
+                        label: key.name,
+                        value: key.id,
+                    }))}
+                    />
+                </Col>
+                <Col span={6}>
+                    <Button type="primary" onClick={handleLinkApiKey}>
                     Vincular
                     </Button>
                 </Col>

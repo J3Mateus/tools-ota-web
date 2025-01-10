@@ -12,6 +12,7 @@ abstract class GroupAdapter {
 	abstract linkDevice(groupID: string, deviceID: string): Promise<boolean>;
 	abstract linkFirmware(groupID: string, firmwareID: string): Promise<boolean>;
 	abstract linkWifi(groupID: string, wifiID: string): Promise<boolean>;
+	abstract linkApiKey(groupID: string, apiKeyID: string): Promise<boolean>;
 	abstract initializeOta(groupID: string): Promise<boolean>;
 	abstract removeDeviceForGroup(groupID: string, deviceID: string): Promise<boolean>;
 }

@@ -132,7 +132,8 @@ export const routes: NavigationBranch = {
 				{
 					name: "Vincular recursos dispostivo",
 					path:"/admin/vincular-recursos/:deviceId/dispositivo",
-					page: DeviceDetailPage
+					page: DeviceDetailPage,
+					hidden: true,
 				}
 			],
 		},

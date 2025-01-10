@@ -121,6 +121,16 @@ function GroupProvider({ usecase, children }: PropsWithChildren<Props>) {
 		return isRemoved;
 	},[]);
 
+	const linkApiKey = useCallback( async (groupID: string, apiKeyID: string)=>{
+		let isLinked = false;
+		try {
+			isLinked = await usecase.linkApiKey(groupID, apiKeyID);
+		} catch (err) {
+			panic(err);
+		}
+		return isLinked;
+	},[])
+
 	return (
 		<GroupCTX.Provider
 			value={{
@@ -135,6 +145,7 @@ function GroupProvider({ usecase, children }: PropsWithChildren<Props>) {
 				linkFirmware,
 				initializeOta,
 				removeDeviceForGroup,
+				linkApiKey
 			}}
 		>
 			{children}

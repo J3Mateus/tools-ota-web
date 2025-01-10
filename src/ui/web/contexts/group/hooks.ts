@@ -44,3 +44,7 @@ export function useInitializeOta(){
 export function useRemoveDeviceForGroup(){
 	return useContextSelector(GroupCTX, (ctx)=> ctx.removeDeviceForGroup);
 }
+
+export function useLinkApiKey(){
+	return useContextSelector(GroupCTX, (ctx)=> ctx.linkApiKey);
+}

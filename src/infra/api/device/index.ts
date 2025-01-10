@@ -52,6 +52,12 @@ class DeviceAPI extends BaseAPI implements DeviceAdapter {
 		return true;
 	}
 
+	async linkApiKey(deviceID: string, apiKeyID: string): Promise<boolean> {
+
+		await this.client.post(`/device/create/link-api-key/${deviceID}/${apiKeyID}/`);
+		return true;
+	}
+
 }
 
 export default DeviceAPI;

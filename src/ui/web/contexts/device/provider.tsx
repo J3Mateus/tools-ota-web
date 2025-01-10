@@ -99,6 +99,17 @@ function DeviceProvider({ usecase, children }: PropsWithChildren<Props>) {
 		return isInitialized;
 	},[]);
 
+	const linkApiKey = useCallback(async (deviceID: string, apiKeyID: string) => {
+		let isLinked = false;
+		try {
+			isLinked = await usecase.linkApiKey(deviceID, apiKeyID);
+			await fetch();
+		} catch (err) {
+			panic(err);
+		}
+		return isLinked;
+	},[])
+
 	return (
 		<DeviceCTX.Provider
 			value={{
@@ -111,6 +122,7 @@ function DeviceProvider({ usecase, children }: PropsWithChildren<Props>) {
 				linkWifi,
 				linkFirmware,
 				initializeOta,
+				linkApiKey
 			}}
 		>
 			{children}

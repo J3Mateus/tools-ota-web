@@ -45,6 +45,10 @@ class GroupService implements GroupUseCase {
 	async removeDeviceForGroup(groupID: string, deviceID: string): Promise<boolean> {
 		return await this.adapter.removeDeviceForGroup(groupID, deviceID);
 	}
+
+	async linkApiKey(groupID: string, apiKeyID: string): Promise<boolean> {
+		return await this.adapter.linkApiKey(groupID, apiKeyID);
+	}
 }
 
 export default GroupService;

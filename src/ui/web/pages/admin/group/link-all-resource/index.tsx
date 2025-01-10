@@ -21,7 +21,12 @@ import {
     useWifis 
 } from "@web/contexts/wifi/hooks";
 
-import { useFindGroupByID, useLinkDevice, useLinkFirmware, useLinkWifi, useRemoveDeviceForGroup } from "@web/contexts/group/hooks";
+import {
+    useFetchKeys,
+    useKeys
+} from "@web/contexts/key/hooks"
+
+import { useFindGroupByID, useLinkDevice, useLinkFirmware, useLinkWifi, useLinkApiKey, useRemoveDeviceForGroup } from "@web/contexts/group/hooks";
 import View from "@web/components/base/View";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -69,22 +74,29 @@ function GroupDetailPage() {
     const featchWifis = useFetchWifis();
     const wifis = useWifis();
 
+    const fetchKeys = useFetchKeys();
+    const apiKey = useKeys();
+
     const removeDeviceForGroup = useRemoveDeviceForGroup();
 
 
     const linkDeviceToWiFi = useLinkWifi();
     const linkDeviceToFirmware = useLinkFirmware();
     const linkDeviceToGroup = useLinkDevice();
+    const linkDeviceToApiKey = useLinkApiKey();
 
     const [selectedWiFi, setSelectedWiFi] = useState<string | undefined>();
     const [selectedFirmware, setSelectedFirmware] = useState<string | undefined>();
     const [selectedDevice, setSelectedDevice] = useState<string | undefined>();
+    const [selectedKey, setSelectedKey ] =  useState<string | undefined>();
+    
     const [group, setGroup] = useState<Group>();
 
     useEffect(() => {
         fetchDevices();
         fetchFirmwares();
         featchWifis();
+        fetchKeys();
 
         if (groupId && !!findGroupByID) {
             findGroupByID(groupId).then((result) => {
@@ -133,6 +145,18 @@ function GroupDetailPage() {
         }
         }
     }, [groupId, selectedDevice, linkDeviceToGroup, group, devices?.results]);
+
+    const handleLinkApiKey = useCallback(async () => {
+        if (groupId && selectedKey) {
+        const success = await linkDeviceToApiKey(groupId, selectedKey);
+        if (success) {
+            if (findGroupByID) {
+                const updatedGroup = await findGroupByID(groupId); // Faz nova requisição
+                setGroup(updatedGroup); // Atualiza o estado do grupo
+            }
+        }
+        }
+    }, [groupId, selectedKey, linkDeviceToApiKey,findGroupByID, apiKey?.results]);
 
     const handleRemoveDevice = useCallback(
         async (deviceID: string) => {
@@ -187,6 +211,12 @@ function GroupDetailPage() {
             <Col span={12}>
                 <Form.Item label="Firmware Vinculado">
                     <div>{group?.firmware?.name || "Nenhum Firmware vinculado"}</div>
+                </Form.Item>
+            </Col>
+
+            <Col span={12}>
+                <Form.Item label="Key Vinculado">
+                    <div>{group?.key?.name || "Nenhuma key vinculado"}</div>
                 </Form.Item>
             </Col>
         </Row>
@@ -250,6 +280,29 @@ function GroupDetailPage() {
                 </Col>
                 <Col span={6}>
                     <Button type="primary" onClick={handleLinkDevice}>
+                    Vincular
+                    </Button>
+                </Col>
+                </Row>
+            </Form.Item>
+            </Col>
+
+
+            <Col span={8}>
+            <Form.Item label="Key">
+                <Row gutter={8}>
+                <Col span={18}>
+                    <Select
+                    placeholder="Selecione um key"
+                    onChange={setSelectedKey}
+                    options={apiKey?.results.map((key) => ({
+                        label: key.name,
+                        value: key.id,
+                    }))}
+                    />
+                </Col>
+                <Col span={6}>
+                    <Button type="primary" onClick={handleLinkApiKey}>
                     Vincular
                     </Button>
                 </Col>

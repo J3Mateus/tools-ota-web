@@ -4,6 +4,7 @@ import Group from "@models/Group";
 import BaseAPI from "..";
 
 class GroupAPI extends BaseAPI implements GroupAdapter {
+
 	async fetch(): Promise<Pagination<Group>> {
 		const response = await this.client.get("/group/get/");
 		return Pagination.fromJSON<Group>(response.data, Group.fromJSON);
@@ -67,6 +68,10 @@ class GroupAPI extends BaseAPI implements GroupAdapter {
 		return true;
 	}
 
+	async linkApiKey(groupID: string, apiKeyID: string): Promise<boolean> {
+		await this.client.post(`/group/create/link-api-key/${groupID}/${apiKeyID}/`);
+		return true;
+	}
 
 }
 

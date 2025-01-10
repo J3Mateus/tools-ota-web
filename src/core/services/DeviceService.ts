@@ -38,6 +38,10 @@ class DeviceService implements DeviceUseCase {
 		return await this.adapter.linkWifi(deviceID, wifiID);
 	}
 
+	async linkApiKey(deviceID: string, apiKeyID: string): Promise<boolean> {
+		return await this.adapter.linkApiKey(deviceID, apiKeyID);
+	}
+
 }
 
 export default DeviceService;

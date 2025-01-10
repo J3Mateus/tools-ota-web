@@ -36,3 +36,7 @@ export function useLinkFirmware(){
 export function useInitializeOta(){
 	return useContextSelector(DeviceCTX, (ctx)=> ctx.initializeOta);
 }
+
+export function useLinkApiKey(){
+	return useContextSelector(DeviceCTX, (ctx)=> ctx.linkApiKey);
+}

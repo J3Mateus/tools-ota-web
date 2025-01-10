@@ -2,12 +2,14 @@ import { DTO } from "@typing/http";
 import { Model } from "./model";
 import Wifi from "./Wifi";
 import Firmware from "./Firmware";
+import Key from "./Key";
 
 class Device extends Model {
     private _uuid: string;
     private _code: string;
     private _isDeleted: boolean;
     private _wifi?: Wifi;
+    private _key?: Key;
     private _firmware?: Firmware;
     
 
@@ -15,6 +17,7 @@ class Device extends Model {
         super();
         this._uuid = "";
         this._code = "";
+        this._key = undefined;
         this._isDeleted = false;
     }
 
@@ -59,12 +62,21 @@ class Device extends Model {
         this._wifi = value;
     }
 
+    get key(): Key | undefined {
+        return this._key;
+    }
+
+    set key(value: Key | undefined) {
+        this._key = value;
+    }
+
     static fromJSON(json: DTO): Device {
         const obj = new Device();
         obj._uuid = String(json["uuid"]);
         obj._code = String(json["code"]);
         obj._isDeleted = Boolean(json["is_deleted"]);
         obj._firmware = json["firmware"] ? Firmware.fromJSON(json["firmware"] as DTO) : undefined;
+        obj._key = json["api_key"] ? Key.fromJSON(json["api_key"] as DTO) : undefined
         obj._wifi = json["wifi"] ? Wifi.fromJSON(json["wifi"] as DTO) : undefined;
         return obj;
     }
@@ -78,6 +90,7 @@ class Device extends Model {
         json["uuid"] = this._uuid;
         json["code"] = this._code;
         json["is_deleted"] = this._isDeleted;
+        if (this._key) json["api_key"] = this._key.toJSON();
         if (this._firmware) json["firmware"] = this._firmware.toJSON();
         if (this._wifi) json["wifi"] = this._wifi.toJSON();
         return json;

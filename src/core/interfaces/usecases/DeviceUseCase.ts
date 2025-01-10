@@ -11,6 +11,7 @@ abstract class DeviceUseCase {
 	abstract update(device: Device): Promise<boolean>;
 	abstract linkFirmware(groupID: string, firmwareID: string): Promise<boolean>;
 	abstract linkWifi(groupID: string, wifiID: string): Promise<boolean>;
+	abstract linkApiKey(groupID: string, apiKeyID: string): Promise<boolean>;
 	abstract initializeOta(deviceID: string): Promise<boolean>;
 }
 
