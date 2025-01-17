@@ -58,6 +58,16 @@ class DeviceAPI extends BaseAPI implements DeviceAdapter {
 		return true;
 	}
 
+	async removeFirmware(deviceID: string): Promise<boolean> {
+		await this.client.post(`/device/create/remove-firmware/${deviceID}/`);
+		return true;
+	}
+
+	async forcedUpdate(deviceID: string): Promise<boolean> {
+		await this.client.post(`/device/create/forced-update/${deviceID}/`);
+		return true;
+	}
+
 }
 
 export default DeviceAPI;

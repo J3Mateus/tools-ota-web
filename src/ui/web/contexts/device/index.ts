@@ -13,6 +13,8 @@ interface Props {
 	linkFirmware(deviceID: string, firewallID: string): Promise<boolean>;
 	linkApiKey(deviceID: string, apiKeyID: string): Promise<boolean>;
 	initializeOta(deviceID: string): Promise<boolean>;
+	removeFirmware(deviceID: string): Promise<boolean>;
+	forcedUpdate(deviceID: string): Promise<boolean>;
 }
 
 export const DeviceCTX = createContext({} as Props);

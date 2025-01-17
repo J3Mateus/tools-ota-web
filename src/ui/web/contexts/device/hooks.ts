@@ -40,3 +40,11 @@ export function useInitializeOta(){
 export function useLinkApiKey(){
 	return useContextSelector(DeviceCTX, (ctx)=> ctx.linkApiKey);
 }
+
+export function useRemoveFireware(){
+	return useContextSelector(DeviceCTX, (ctx)=> ctx.removeFirmware);
+}
+
+export function useForcedUpdate(){
+	return useContextSelector(DeviceCTX, (ctx)=> ctx.forcedUpdate);
+}

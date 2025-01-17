@@ -13,6 +13,8 @@ abstract class DeviceAdapter {
 	abstract linkWifi(groupID: string, wifiID: string): Promise<boolean>;
 	abstract linkApiKey(groupID: string, apiKeyID: string): Promise<boolean>;
 	abstract initializeOta(deviceID: string): Promise<boolean>;
+	abstract removeFirmware(deviceID: string): Promise<boolean>;
+	abstract forcedUpdate(deviceID: string): Promise<boolean>;
 }
 
 export default DeviceAdapter;

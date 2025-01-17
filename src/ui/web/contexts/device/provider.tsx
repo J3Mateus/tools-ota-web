@@ -110,6 +110,28 @@ function DeviceProvider({ usecase, children }: PropsWithChildren<Props>) {
 		return isLinked;
 	},[])
 
+	const removeFirmware = useCallback(async (deviceID: string) => {
+		let isRemoved = false;
+		try {
+			isRemoved = await usecase.removeFirmware(deviceID);
+			await fetch();
+		} catch (err) {
+			panic(err);
+		}
+		return isRemoved;
+	},[])
+
+	const forcedUpdate = useCallback(async (deviceID: string) => {
+		let isUpdated = false;
+		try {
+			isUpdated = await usecase.forcedUpdate(deviceID);
+			await fetch();
+		} catch (err) {
+			panic(err);
+		}
+		return isUpdated;
+	},[])
+
 	return (
 		<DeviceCTX.Provider
 			value={{
@@ -122,7 +144,9 @@ function DeviceProvider({ usecase, children }: PropsWithChildren<Props>) {
 				linkWifi,
 				linkFirmware,
 				initializeOta,
-				linkApiKey
+				linkApiKey,
+				removeFirmware,
+				forcedUpdate
 			}}
 		>
 			{children}

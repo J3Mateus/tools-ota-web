@@ -42,6 +42,14 @@ class DeviceService implements DeviceUseCase {
 		return await this.adapter.linkApiKey(deviceID, apiKeyID);
 	}
 
+	async removeFirmware(deviceID: string): Promise<boolean> {
+		return await this.adapter.removeFirmware(deviceID);
+	}
+
+	async forcedUpdate(deviceID: string): Promise<boolean> {
+		return await this.adapter.forcedUpdate(deviceID);
+	}
+
 }
 
 export default DeviceService;

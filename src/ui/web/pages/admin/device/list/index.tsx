@@ -6,7 +6,9 @@ import {
 	useEraseDevice,
 	useFetchDevices,
 	useDevices,
-	useInitializeOta
+	useInitializeOta,
+	useForcedUpdate,
+	useRemoveFireware
 } from "@web/contexts/device/hooks";
 import { useEraseConfirmModal } from "@web/components/EraseConfirmModal/hooks";
 import EraseConfirmModal from "@web/components/EraseConfirmModal";
@@ -14,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import View from "@web/components/base/View";
 import { FiUploadCloud } from "react-icons/fi";
 import { CiLink } from "react-icons/ci";
+import { FaUserSlash } from 'react-icons/fa';
+import { FiRefreshCw } from 'react-icons/fi';
 
 const tableColumns = [
 	{
@@ -37,6 +41,9 @@ function ListDevices() {
 	const eraseDevice = useEraseDevice();
 	const eraseConfirmModalRef = useEraseConfirmModal();
 	const initializeOta = useInitializeOta();
+
+	const forcedUpdate = useForcedUpdate();
+	const removeFirmware = useRemoveFireware();
 
 	const navigate = useNavigate();
 
@@ -63,6 +70,22 @@ function ListDevices() {
 				>
 					<CiLink size={20} />
 				</Button>
+
+				<Button
+					type="primary"
+					onClick={() => removeFirmware(data.uuid)}
+				>
+					<FaUserSlash size={20} />
+				</Button>
+
+				<Button
+					type="primary"
+					onClick={() => forcedUpdate(data.uuid)}
+				>
+					<FiRefreshCw size={20} />
+				</Button>
+
+
 				<Button
 					danger
 					type="primary"
