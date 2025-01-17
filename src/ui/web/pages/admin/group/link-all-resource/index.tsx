@@ -46,9 +46,8 @@ const tableColumns = [
   },
   {
     title: "Status",
-    dataIndex: "isDeleted",
-    key: "isDeleted",
-    render: (isDeleted: boolean) => (isDeleted ? "Deleted" : "Active"),
+    dataIndex: "status",
+    key: "status",
   },
   {
     title: "Ações",

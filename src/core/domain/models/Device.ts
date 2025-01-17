@@ -11,12 +11,14 @@ class Device extends Model {
     private _wifi?: Wifi;
     private _key?: Key;
     private _firmware?: Firmware;
+    private _status?: string;
     
 
     constructor() {
         super();
         this._uuid = "";
         this._code = "";
+        this._status = "";
         this._key = undefined;
         this._isDeleted = false;
     }
@@ -70,6 +72,15 @@ class Device extends Model {
         this._key = value;
     }
 
+    get status(): string | undefined {
+        return this._status;
+    }
+
+    set status(value: string | undefined) {
+        this._status = value;
+    }
+
+
     static fromJSON(json: DTO): Device {
         const obj = new Device();
         obj._uuid = String(json["uuid"]);
@@ -78,6 +89,7 @@ class Device extends Model {
         obj._firmware = json["firmware"] ? Firmware.fromJSON(json["firmware"] as DTO) : undefined;
         obj._key = json["api_key"] ? Key.fromJSON(json["api_key"] as DTO) : undefined
         obj._wifi = json["wifi"] ? Wifi.fromJSON(json["wifi"] as DTO) : undefined;
+        obj._status = json["status"] ? String(json["status"]) : undefined;
         return obj;
     }
 
@@ -93,6 +105,7 @@ class Device extends Model {
         if (this._key) json["api_key"] = this._key.toJSON();
         if (this._firmware) json["firmware"] = this._firmware.toJSON();
         if (this._wifi) json["wifi"] = this._wifi.toJSON();
+        if (this._status) json["status"] = this._status;
         return json;
     }
 
